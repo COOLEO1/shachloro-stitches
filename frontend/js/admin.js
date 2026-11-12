@@ -136,6 +136,18 @@
               <strong>${escapeHTML(order.phone)}</strong>
             </div>
             <div class="order-detail">
+              <span>Email</span>
+              <strong>${escapeHTML(order.email || "Not provided")}</strong>
+            </div>
+            <div class="order-detail">
+              <span>Gender</span>
+              <strong>${escapeHTML(order.gender || "Not provided")}</strong>
+            </div>
+            <div class="order-detail">
+              <span>Quantity</span>
+              <strong>${escapeHTML(order.quantity ?? 1)}</strong>
+            </div>
+            <div class="order-detail">
               <span>Location</span>
               <strong>${escapeHTML(order.location)}</strong>
             </div>

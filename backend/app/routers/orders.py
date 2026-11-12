@@ -1,3 +1,4 @@
+import re
 import uuid
 
 from fastapi import (
@@ -46,13 +47,28 @@ async def create_order(
     garment: str = Form(...),
     size: str = Form(...),
     description: str = Form(...),
+    email: str = Form(default=""),
+    gender: str = Form(default=""),
+    quantity: int = Form(default=1),
     design_images: list[UploadFile] = File(default=[])
 ):
+    email = (email or "").strip() or None
+    gender = (gender or "").strip() or None
+
+    if email and not re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+", email):
+        raise HTTPException(
+            status_code=422,
+            detail="Please enter a valid email address."
+        )
+
     try:
         order = OrderCreate(
             customer_name=customer_name,
             phone=phone,
             location=location,
+            email=email,
+            gender=gender,
+            quantity=quantity,
             garment=garment,
             size=size,
             description=description
@@ -134,6 +150,9 @@ async def create_order(
             "customer_name": order.customer_name,
             "phone": order.phone,
             "location": order.location,
+            "email": order.email,
+            "gender": order.gender,
+            "quantity": order.quantity,
             "garment": order.garment,
             "size": order.size,
             "description": order.description,

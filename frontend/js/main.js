@@ -145,6 +145,9 @@ if (orderForm) {
     uploadData.append("customer_name", form.get("customerName").trim());
     uploadData.append("phone", form.get("phone").trim());
     uploadData.append("location", form.get("location").trim());
+    uploadData.append("email", (form.get("email") || "").trim());
+    uploadData.append("gender", form.get("gender") || "");
+    uploadData.append("quantity", form.get("quantity") || "1");
     uploadData.append("garment", form.get("garment"));
     uploadData.append("size", form.get("size"));
     uploadData.append("description", form.get("description").trim());
