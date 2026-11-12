@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Share your custom clothing idea with SHACHLORO STITCHES.">
+  <title>Custom Order | SHACHLORO STITCHES</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="page-main">
+    <section class="page-hero">
+      <span class="eyebrow">MADE AROUND YOUR IDEA</span>
+      <h1>Your style, your <em>design.</em></h1>
+      <p>Tell us about the clothing you have in mind. This form is a frontend preview and is not connected to an order system yet.</p>
+    </section>
+
+    <section class="section order-layout">
+      <div class="order-note">
+        <span class="eyebrow">CUSTOM DESIGN</span>
+        <h2>Let's start with your idea.</h2>
+        <p>Share your preferred style, location and any details that can help explain the design.</p>
+        <p class="small-note">Please do not submit payment details or sensitive personal information through this preview.</p>
+      </div>
+
+      <form class="order-form" id="orderForm">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="customerName">Your name</label>
+            <input id="customerName" name="customerName" type="text" autocomplete="name" required>
+          </div>
+          <div class="form-field">
+            <label for="phone">Phone number</label>
+            <input id="phone" name="phone" type="tel" placeholder="+265..." autocomplete="tel" required>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="location">Your location</label>
+          <input id="location" name="location" type="text" placeholder="Your town or area" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="garment">Type of clothing</label>
+            <select id="garment" name="garment" required>
+              <option value="">Choose an option</option>
+              <option value="Traditional outfit">Traditional outfit</option>
+              <option value="Shirt">Shirt</option>
+              <option value="Dress">Dress</option>
+              <option value="Other">Other / not listed</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="size">Preferred size</label>
+            <select id="size" name="size" required>
+              <option value="">Choose a size</option>
+              <option value="Small">Small</option>
+              <option value="Medium">Medium</option>
+              <option value="Large">Large</option>
+              <option value="Extra large">Extra large</option>
+              <option value="Need measurement guidance">Need measurement guidance</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="description">Describe your design</label>
+          <textarea id="description" name="description" rows="5" placeholder="Describe the style, fabric or details you have in mind..." required></textarea>
+        </div>
+
+        <div class="form-field">
+          <label for="designImage">Reference image (optional)</label>
+          <input id="designImage" name="designImage" type="file" accept="image/*">
+          <span class="field-help">Image upload will be enabled when the backend is connected.</span>
+        </div>
+
+        <button class="button button-dark form-submit" type="submit">Preview order request</button>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        <p class="small-note">Preview only — this form does not send or save an order.</p>
+      </form>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+</body>
+</html>

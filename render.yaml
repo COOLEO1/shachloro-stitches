@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: shachloro-stitches
+    runtime: static
+    buildCommand: echo "Static frontend ready"
+    staticPublishPath: frontend
