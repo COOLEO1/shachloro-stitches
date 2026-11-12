@@ -4,6 +4,7 @@ const navigation = [
   ["index.html", "Home"],
   ["collections.html", "Collections"],
   ["about.html", "Our story"],
+  ["track-order.html", "Track order"],
   ["contact.html", "Contact"]
 ];
 
@@ -61,6 +62,7 @@ if (footer) {
           <a href="collections.html">Collections</a>
           <a href="custom-order.html">Custom order</a>
           <a href="about.html">Our story</a>
+          <a href="track-order.html">Track an order</a>
           <a href="contact.html">Contact</a>
         </div>
       </div>

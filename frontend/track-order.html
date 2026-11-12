@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Track the progress of your SHACHLORO STITCHES custom clothing order.">
+  <title>Track Your Order | SHACHLORO STITCHES</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/tracking.css">
+  <script src="js/main.js" defer></script>
+  <script src="js/tracking.js" defer></script>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="page-main tracking-main">
+    <section class="page-hero tracking-hero">
+      <span class="eyebrow">YOUR ORDER, YOUR JOURNEY</span>
+      <h1>Track your <em>order.</em></h1>
+      <p>Stay updated on the progress of your custom design, from the first confirmation to completion.</p>
+    </section>
+
+    <section class="tracking-section">
+      <div class="tracking-card">
+        <span class="eyebrow">ORDER STATUS</span>
+        <h2>Where is your order?</h2>
+        <p>Enter the reference number you received after submitting your order.</p>
+
+        <form id="trackingForm" class="tracking-form">
+          <label for="orderReference">Order reference number</label>
+          <input
+            id="orderReference"
+            name="reference"
+            type="text"
+            placeholder="SHS-XXXXXXXX..."
+            autocomplete="off"
+            maxlength="40"
+            required
+          >
+          <button class="button button-dark" id="trackButton" type="submit">
+            Track my order
+          </button>
+        </form>
+
+        <p id="trackingMessage" class="tracking-message" role="status" aria-live="polite"></p>
+      </div>
+
+      <section id="trackingResult" class="tracking-result" hidden aria-live="polite">
+        <div class="result-heading">
+          <div>
+            <span class="eyebrow">ORDER DETAILS</span>
+            <h2>Your order progress</h2>
+          </div>
+          <span id="currentStatus" class="status-badge"></span>
+        </div>
+
+        <div class="reference-panel">
+          <span>REFERENCE NUMBER</span>
+          <strong id="resultReference"></strong>
+        </div>
+
+        <div class="progress-list" id="progressList">
+          <div class="progress-step" data-step="pending">
+            <span class="step-marker">1</span>
+            <div>
+              <strong>Order received</strong>
+              <p>Your order has been submitted and is awaiting review.</p>
+            </div>
+          </div>
+          <div class="progress-step" data-step="accepted">
+            <span class="step-marker">2</span>
+            <div>
+              <strong>Order accepted</strong>
+              <p>Your design request has been accepted.</p>
+            </div>
+          </div>
+          <div class="progress-step" data-step="in_progress">
+            <span class="step-marker">3</span>
+            <div>
+              <strong>In progress</strong>
+              <p>Your garment is being worked on.</p>
+            </div>
+          </div>
+          <div class="progress-step" data-step="completed">
+            <span class="step-marker">4</span>
+            <div>
+              <strong>Completed</strong>
+              <p>Your order has been marked as completed.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="cancelledMessage" class="cancelled-message" hidden>
+          This order has been cancelled. Please contact SHACHLORO STITCHES if you need assistance.
+        </div>
+
+        <div class="created-date">
+          <span>Order submitted:</span>
+          <strong id="createdDate"></strong>
+        </div>
+
+        <button id="checkAgain" class="tracking-refresh" type="button">
+          Check status again
+        </button>
+      </section>
+
+      <p class="tracking-help">
+        Keep your order reference safe. Anyone with the reference can view its status.
+        <a href="contact.html">Contact us</a> if you need assistance.
+      </p>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+</body>
+</html>
