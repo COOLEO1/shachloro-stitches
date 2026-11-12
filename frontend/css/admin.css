@@ -308,3 +308,37 @@
   .order-actions select,
   .order-actions button { width: 100%; }
 }
+
+/* Private customer design references */
+.order-design-images {
+  margin-top: 22px;
+}
+
+.order-design-images > span {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.order-design-image-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.order-design-image-list a {
+  display: block;
+  width: 112px;
+  height: 112px;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid rgba(150, 120, 85, 0.25);
+}
+
+.order-design-image-list img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

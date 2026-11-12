@@ -93,6 +93,29 @@
         `<option value="${value}" ${value === currentStatus ? "selected" : ""}>${label}</option>`
       ).join("");
 
+      const images = Array.isArray(order.design_image_urls)
+        ? order.design_image_urls
+        : [];
+
+      const imageMarkup = images.length
+        ? `
+          <div class="order-design-images">
+            <span>Customer design references</span>
+            <div class="order-design-image-list">
+              ${images.map(image => `
+                <a href="${escapeHTML(image.url)}"
+                   target="_blank" rel="noopener noreferrer"
+                   title="Open ${escapeHTML(image.name)}">
+                  <img src="${escapeHTML(image.url)}"
+                       alt="${escapeHTML(image.name)}"
+                       loading="lazy">
+                </a>
+              `).join("")}
+            </div>
+          </div>
+        `
+        : "";
+
       return `
         <article class="order-card">
           <div class="order-card-top">
@@ -125,6 +148,8 @@
               <strong>${escapeHTML(order.description)}</strong>
             </div>
           </div>
+
+          ${imageMarkup}
 
           <div class="order-actions">
             <label class="visually-hidden" for="status-${reference}">Change order status</label>

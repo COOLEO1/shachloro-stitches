@@ -13,3 +13,8 @@ backend-security-backup-*/
 # Local frontend backups
 frontend/*.backup
 *.backup
+
+# Local upload implementation backups
+upload-backup-*/
+
+tracking-backup-*/

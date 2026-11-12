@@ -85,6 +85,39 @@ if (orderForm) {
   const API_BASE_URL = "https://shachloro-test.onrender.com";
   const submitButton = orderForm.querySelector('button[type="submit"]');
   const status = document.getElementById("formStatus");
+  const imageInput = document.getElementById("designImage");
+  const imagePreview = document.getElementById("designImagePreview");
+
+  const MAX_IMAGES = 3;
+  const MAX_SIZE = 5 * 1024 * 1024;
+  const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
+
+  imageInput?.addEventListener("change", () => {
+    const files = Array.from(imageInput.files || []);
+
+    if (files.length > MAX_IMAGES) {
+      imageInput.value = "";
+      imagePreview.textContent = "Please select no more than 3 images.";
+      return;
+    }
+
+    const invalid = files.find(file =>
+      !ALLOWED_TYPES.includes(file.type) || file.size > MAX_SIZE
+    );
+
+    if (invalid) {
+      imageInput.value = "";
+      imagePreview.textContent =
+        "Invalid image. Use JPG, PNG or WEBP files up to 5 MB each.";
+      return;
+    }
+
+    imagePreview.textContent = files.length
+      ? files.map(file =>
+          `${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`
+        ).join(" · ")
+      : "No images selected.";
+  });
 
   orderForm.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -92,36 +125,53 @@ if (orderForm) {
     if (!orderForm.reportValidity()) return;
 
     const form = new FormData(orderForm);
+    const files = Array.from(imageInput?.files || []);
 
-    const order = {
-      customer_name: form.get("customerName").trim(),
-      phone: form.get("phone").trim(),
-      location: form.get("location").trim(),
-      garment: form.get("garment"),
-      size: form.get("size"),
-      description: form.get("description").trim()
-    };
+    if (files.length > MAX_IMAGES) {
+      status.textContent = "Please select no more than 3 images.";
+      return;
+    }
+
+    if (files.some(file =>
+      !ALLOWED_TYPES.includes(file.type) || file.size > MAX_SIZE
+    )) {
+      status.textContent =
+        "One or more images are invalid. Use JPG, PNG or WEBP up to 5 MB each.";
+      return;
+    }
+
+    const uploadData = new FormData();
+
+    uploadData.append("customer_name", form.get("customerName").trim());
+    uploadData.append("phone", form.get("phone").trim());
+    uploadData.append("location", form.get("location").trim());
+    uploadData.append("garment", form.get("garment"));
+    uploadData.append("size", form.get("size"));
+    uploadData.append("description", form.get("description").trim());
+
+    files.forEach(file => uploadData.append("design_images", file));
 
     submitButton.disabled = true;
     submitButton.textContent = "Submitting order...";
-    status.textContent = "Connecting to SHACHLORO STITCHES...";
+    status.textContent = files.length
+      ? "Uploading your design images and submitting your order..."
+      : "Connecting to SHACHLORO STITCHES...";
 
     try {
       const response = await fetch(`${API_BASE_URL}/api/orders/`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
         credentials: "omit",
-        body: JSON.stringify(order),
-        signal: AbortSignal.timeout(90000)
+        body: uploadData,
+        signal: AbortSignal.timeout(120000)
       });
 
       const result = await response.json().catch(() => ({}));
 
       if (!response.ok) {
         if (response.status === 429) {
-          throw new Error("Too many attempts. Please wait a minute before trying again.");
+          throw new Error(
+            "Too many attempts. Please wait a minute before trying again."
+          );
         }
 
         throw new Error(
@@ -134,12 +184,14 @@ if (orderForm) {
 
       orderForm.reset();
 
+      if (imagePreview) imagePreview.textContent = "";
+
     } catch (error) {
       console.error("Order submission failed:", error);
 
       status.textContent =
         error.name === "TimeoutError"
-          ? "The server took too long to respond. Please check your connection and try again."
+          ? "The upload took too long. Please check your connection and try again."
           : error.message === "Failed to fetch"
             ? "We couldn't connect to the order service. Please check your internet connection and try again."
             : error.message || "Something went wrong. Please try again.";

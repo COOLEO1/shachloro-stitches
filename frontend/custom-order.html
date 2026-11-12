@@ -73,9 +73,19 @@
         </div>
 
         <div class="form-field">
-          <label for="designImage">Reference image (optional)</label>
-          <input id="designImage" name="designImage" type="file" accept="image/*" disabled>
-          <span class="field-help">Reference image uploads are coming soon. Please describe your design below for now.</span>
+          <label for="designImage">Design reference images (optional)</label>
+          <input
+            id="designImage"
+            name="designImage"
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            multiple
+          >
+          <span class="field-help">
+            Upload up to 3 images (JPG, PNG or WEBP). Maximum 5 MB per image.
+          </span>
+          <div id="designImagePreview" class="design-image-preview"
+               aria-live="polite"></div>
         </div>
 
         <button class="button button-dark form-submit" type="submit">Submit custom order</button>

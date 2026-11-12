@@ -523,3 +523,12 @@ h1 em, h2 em { color: var(--gold); font-weight: 500; }
 
   .page-hero { padding: 75px 20px 65px; }
 }
+
+/* Customer design image selection */
+.design-image-preview {
+  margin-top: 10px;
+  color: var(--muted, #766b60);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}

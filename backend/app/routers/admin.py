@@ -85,11 +85,50 @@ def list_orders(
             query = query.eq("status", status)
 
         result = query.execute()
+        orders = result.data or []
+
+        # Generate short-lived links only for authenticated administrators.
+        for order in orders:
+            order["design_image_urls"] = []
+
+            for image in order.get("design_images") or []:
+                try:
+                    signed = supabase.storage.from_(
+                        "order-designs"
+                    ).create_signed_url(image["path"], 3600)
+
+                    if isinstance(signed, dict):
+                        url = (
+                            signed.get("signedURL")
+                            or signed.get("signedUrl")
+                        )
+                    else:
+                        url = (
+                            getattr(signed, "signedURL", None)
+                            or getattr(signed, "signedUrl", None)
+                        )
+
+                    if url:
+                        base_url = settings.SUPABASE_URL.rstrip("/")
+
+                        if url.startswith("/storage/v1/"):
+                            url = base_url + url
+                        elif url.startswith("/"):
+                            url = base_url + "/storage/v1" + url
+
+                        order["design_image_urls"].append({
+                            "name": image.get("name", "Design image"),
+                            "url": url
+                        })
+
+                except Exception:
+                    # Do not fail the entire dashboard if one image is unavailable.
+                    continue
 
         return {
             "success": True,
-            "orders": result.data or [],
-            "count": len(result.data or [])
+            "orders": orders,
+            "count": len(orders)
         }
 
     except Exception:
