@@ -76,14 +76,75 @@ if (footer) {
   `;
 }
 
+
 const orderForm = document.getElementById("orderForm");
 
 if (orderForm) {
-  orderForm.addEventListener("submit", (event) => {
+  const API_BASE_URL = "https://shachloro-test.onrender.com";
+  const submitButton = orderForm.querySelector('button[type="submit"]');
+  const status = document.getElementById("formStatus");
+
+  orderForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const status = document.getElementById("formStatus");
-    status.textContent =
-      "Frontend preview only. No order has been sent or saved. Backend connection is still required.";
+    if (!orderForm.reportValidity()) return;
+
+    const form = new FormData(orderForm);
+
+    const order = {
+      customer_name: form.get("customerName").trim(),
+      phone: form.get("phone").trim(),
+      location: form.get("location").trim(),
+      garment: form.get("garment"),
+      size: form.get("size"),
+      description: form.get("description").trim()
+    };
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Submitting order...";
+    status.textContent = "Connecting to SHACHLORO STITCHES...";
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/orders/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "omit",
+        body: JSON.stringify(order),
+        signal: AbortSignal.timeout(90000)
+      });
+
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        if (response.status === 429) {
+          throw new Error("Too many attempts. Please wait a minute before trying again.");
+        }
+
+        throw new Error(
+          result.detail || "We couldn't submit your order. Please try again."
+        );
+      }
+
+      status.textContent =
+        `Your order has been received! Your reference number is ${result.reference}. Please keep it safe to track your order.`;
+
+      orderForm.reset();
+
+    } catch (error) {
+      console.error("Order submission failed:", error);
+
+      status.textContent =
+        error.name === "TimeoutError"
+          ? "The server took too long to respond. Please check your connection and try again."
+          : error.message === "Failed to fetch"
+            ? "We couldn't connect to the order service. Please check your internet connection and try again."
+            : error.message || "Something went wrong. Please try again.";
+
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = "Submit custom order";
+    }
   });
 }

@@ -9,3 +9,6 @@ __pycache__/
 .mypy_cache/
 .DS_Store
 backend-security-backup-*/
+
+# Local frontend backups
+frontend/*.backup

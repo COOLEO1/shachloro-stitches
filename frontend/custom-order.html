@@ -15,7 +15,7 @@
     <section class="page-hero">
       <span class="eyebrow">MADE AROUND YOUR IDEA</span>
       <h1>Your style, your <em>design.</em></h1>
-      <p>Tell us about the clothing you have in mind. This form is a frontend preview and is not connected to an order system yet.</p>
+      <p>Tell us about the clothing you have in mind. Share your design details with us and submit your custom clothing order.</p>
     </section>
 
     <section class="section order-layout">
@@ -74,13 +74,13 @@
 
         <div class="form-field">
           <label for="designImage">Reference image (optional)</label>
-          <input id="designImage" name="designImage" type="file" accept="image/*">
-          <span class="field-help">Image upload will be enabled when the backend is connected.</span>
+          <input id="designImage" name="designImage" type="file" accept="image/*" disabled>
+          <span class="field-help">Reference image uploads are coming soon. Please describe your design below for now.</span>
         </div>
 
-        <button class="button button-dark form-submit" type="submit">Preview order request</button>
+        <button class="button button-dark form-submit" type="submit">Submit custom order</button>
         <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
-        <p class="small-note">Preview only — this form does not send or save an order.</p>
+        <p class="small-note">Your order will be submitted securely for review. Do not include payment details here.</p>
       </form>
     </section>
   </main>
