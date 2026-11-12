@@ -20,3 +20,16 @@ class OrderCreate(BaseModel):
         "Need measurement guidance"
     ]
     description: str = Field(min_length=5, max_length=2000)
+
+
+OrderStatus = Literal[
+    "pending",
+    "accepted",
+    "in_progress",
+    "completed",
+    "cancelled"
+]
+
+
+class OrderStatusUpdate(BaseModel):
+    status: OrderStatus

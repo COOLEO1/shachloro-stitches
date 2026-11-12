@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="SHACHLORO STITCHES administration">
+  <title>Admin | SHACHLORO STITCHES</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <script src="js/admin-config.js" defer></script>
+  <script src="js/admin.js" defer></script>
+</head>
+<body class="admin-body">
+
+  <header class="admin-topbar">
+    <a class="brand" href="index.html">
+      <span class="brand-name">SHACHLORO STITCHES</span>
+      <span class="brand-tag">Administration</span>
+    </a>
+    <a href="index.html" class="admin-back">View website ↗</a>
+  </header>
+
+  <main class="admin-main">
+
+    <section id="loginPanel" class="admin-login">
+      <span class="eyebrow">PRIVATE ACCESS</span>
+      <h1>Welcome <em>back.</em></h1>
+      <p>Sign in to manage customer orders.</p>
+
+      <form id="loginForm">
+        <div class="form-field">
+          <label for="adminEmail">Email address</label>
+          <input id="adminEmail" type="email" autocomplete="username"
+                 required maxlength="254">
+        </div>
+
+        <div class="form-field">
+          <label for="adminPassword">Password</label>
+          <input id="adminPassword" type="password"
+                 autocomplete="current-password" required>
+        </div>
+
+        <button id="loginButton" class="button button-dark form-submit"
+                type="submit">Sign in securely</button>
+
+        <p id="loginStatus" class="admin-message" role="status"
+           aria-live="polite"></p>
+      </form>
+      <p class="admin-small">Authorised administrators only.</p>
+    </section>
+
+    <section id="dashboardPanel" class="admin-dashboard" hidden>
+      <div class="admin-heading">
+        <div>
+          <span class="eyebrow">ORDER MANAGEMENT</span>
+          <h1>Orders <em>overview.</em></h1>
+          <p>Review and manage customer requests.</p>
+        </div>
+        <button id="logoutButton" class="button button-outline-dark"
+                type="button">Sign out</button>
+      </div>
+
+      <div class="admin-stats">
+        <article class="admin-stat">
+          <span>Total loaded</span>
+          <strong id="totalCount">0</strong>
+        </article>
+        <article class="admin-stat">
+          <span>Pending</span>
+          <strong id="pendingCount">0</strong>
+        </article>
+        <article class="admin-stat">
+          <span>In progress</span>
+          <strong id="progressCount">0</strong>
+        </article>
+        <article class="admin-stat">
+          <span>Completed</span>
+          <strong id="completedCount">0</strong>
+        </article>
+      </div>
+
+      <div class="admin-toolbar">
+        <div>
+          <h2>Customer orders</h2>
+          <p>Newest orders appear first.</p>
+        </div>
+        <div class="admin-filters">
+          <label class="visually-hidden" for="statusFilter">Filter orders</label>
+          <select id="statusFilter">
+            <option value="">All statuses</option>
+            <option value="pending">Pending</option>
+            <option value="accepted">Accepted</option>
+            <option value="in_progress">In progress</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+          <button id="refreshButton" class="button button-dark"
+                  type="button">Refresh</button>
+        </div>
+      </div>
+
+      <p id="dashboardStatus" class="admin-message" role="status"
+         aria-live="polite"></p>
+
+      <div id="ordersList" class="orders-list">
+        <div class="orders-empty">Loading orders...</div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="admin-footer">
+    SHACHLORO STITCHES · Private administration
+  </footer>
+
+</body>
+</html>

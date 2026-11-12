@@ -12,3 +12,4 @@ backend-security-backup-*/
 
 # Local frontend backups
 frontend/*.backup
+*.backup
