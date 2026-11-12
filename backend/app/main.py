@@ -6,7 +6,7 @@ from slowapi.middleware import SlowAPIMiddleware
 
 from app.config import settings
 from app.limiter import limiter
-from app.routers import admin, orders
+from app.routers import admin, orders, payments
 
 app = FastAPI(
     title="SHACHLORO STITCHES API",
@@ -31,6 +31,7 @@ app.add_middleware(
 
 app.include_router(orders.router)
 app.include_router(admin.router)
+app.include_router(payments.router)
 
 
 @app.get("/")

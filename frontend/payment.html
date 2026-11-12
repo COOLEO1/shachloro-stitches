@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Order Payment | SHACHLORO STITCHES</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/payment.css">
+  <script src="js/admin-config.js"></script>
+  <script src="js/payment.js" defer></script>
+</head>
+<body class="payment-body">
+  <header class="admin-topbar">
+    <a class="brand" href="index.html">
+      <span class="brand-name">SHACHLORO STITCHES</span>
+      <span class="brand-tag">Elegant designs · Personal tailoring</span>
+    </a>
+    <a href="index.html" class="admin-back">Website ↗</a>
+  </header>
+
+  <main class="payment-main">
+    <section class="payment-card">
+      <span class="eyebrow">SECURE ORDER INFORMATION</span>
+      <h1>Your order <em>payment.</em></h1>
+      <p class="payment-intro">
+        Review your quotation and payment balance below.
+      </p>
+
+      <div class="payment-reference">
+        <span>ORDER REFERENCE</span>
+        <strong id="paymentReference">Loading...</strong>
+      </div>
+
+      <div id="paymentLoading" class="payment-message">
+        Retrieving your order information...
+      </div>
+
+      <div id="paymentDetails" hidden>
+        <div class="payment-line">
+          <span>Order total</span>
+          <strong id="paymentTotal">—</strong>
+        </div>
+        <div class="payment-line">
+          <span>Required deposit</span>
+          <strong id="paymentDeposit">—</strong>
+        </div>
+        <div class="payment-line">
+          <span>Amount received</span>
+          <strong id="paymentPaid">—</strong>
+        </div>
+        <div class="payment-line payment-balance">
+          <span>Outstanding balance</span>
+          <strong id="paymentBalance">—</strong>
+        </div>
+
+        <div class="payment-due">
+          <span id="dueLabel">AMOUNT CURRENTLY DUE</span>
+          <strong id="paymentDue">—</strong>
+        </div>
+
+        <div class="payment-notice">
+          <strong>Online payments are not activated yet.</strong>
+          <p>
+            Please contact SHACHLORO STITCHES to receive official
+            payment instructions. Do not send money to unverified
+            numbers or share your mobile-money PIN.
+          </p>
+        </div>
+      </div>
+
+      <div id="paymentError" class="payment-error" hidden></div>
+
+      <a href="track-order.html" class="button button-dark payment-button">
+        Track your order
+      </a>
+    </section>
+  </main>
+
+  <footer class="admin-footer">
+    SHACHLORO STITCHES · Order payment information
+  </footer>
+</body>
+</html>

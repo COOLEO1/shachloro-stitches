@@ -342,3 +342,57 @@
   height: 100%;
   object-fit: cover;
 }
+
+/* Order quotation controls */
+.order-quote-editor {
+  margin-top: 22px;
+  padding: 18px;
+  background: #f4ede1;
+  border: 1px solid var(--line);
+}
+
+.order-quote-editor h3 {
+  margin: 0 0 15px;
+  font: 500 19px var(--serif);
+}
+
+.order-quote-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.order-quote-fields label {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.order-quote-fields input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin-top: 6px;
+  padding: 11px;
+  border: 1px solid #ded5c9;
+  background: #fffefa;
+  color: var(--brown);
+  border-radius: 3px;
+}
+
+.order-quote-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.order-quote-actions a {
+  color: #916627;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+@media (max-width: 500px) {
+  .order-quote-fields { grid-template-columns: 1fr; }
+}

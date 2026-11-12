@@ -1,0 +1,120 @@
+.payment-body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--cream);
+}
+
+.payment-main {
+  width: min(620px, calc(100% - 32px));
+  margin: auto;
+  padding: 55px 0 75px;
+  flex: 1;
+}
+
+.payment-card {
+  padding: clamp(24px, 5vw, 42px);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  box-shadow: 0 18px 55px rgba(44,24,16,.07);
+}
+
+.payment-card h1 {
+  margin: 14px 0;
+  font: 500 clamp(34px, 7vw, 48px)/1.2 var(--serif);
+}
+
+.payment-intro {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.payment-reference {
+  margin: 27px 0;
+  padding: 17px;
+  background: #f1e9dc;
+  border: 1px solid var(--line);
+}
+
+.payment-reference span,
+.payment-reference strong {
+  display: block;
+}
+
+.payment-reference span,
+.payment-due span {
+  font-size: 10px;
+  letter-spacing: 1.3px;
+  color: var(--muted);
+}
+
+.payment-reference strong {
+  margin-top: 5px;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.payment-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+}
+
+.payment-line span { color: var(--muted); }
+.payment-line strong { text-align: right; }
+
+.payment-balance {
+  font-weight: 700;
+}
+
+.payment-due {
+  margin-top: 24px;
+  padding: 22px;
+  background: var(--brown);
+  color: white;
+}
+
+.payment-due span {
+  color: var(--gold-light);
+}
+
+.payment-due strong {
+  display: block;
+  margin-top: 8px;
+  font: 500 clamp(28px, 6vw, 38px) var(--serif);
+  overflow-wrap: anywhere;
+}
+
+.payment-notice {
+  margin-top: 22px;
+  padding: 18px;
+  background: #f1e9dc;
+  border-left: 3px solid var(--gold);
+  font-size: 12px;
+}
+
+.payment-notice p {
+  margin-bottom: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.payment-message,
+.payment-error {
+  padding: 18px;
+  margin: 20px 0;
+  background: #f1e9dc;
+  color: var(--brown);
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.payment-error { color: #8b3528; }
+
+.payment-button {
+  width: 100%;
+  margin-top: 25px;
+}

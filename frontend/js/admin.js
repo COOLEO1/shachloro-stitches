@@ -151,6 +151,32 @@
 
           ${imageMarkup}
 
+          <div class="order-quote-editor">
+            <h3>Order quotation · MWK</h3>
+            <div class="order-quote-fields">
+              <label>
+                Total price
+                <input type="number" min="1" step="1"
+                  data-quote-total="${reference}"
+                  value="${escapeHTML(order.quoted_amount ?? "")}"
+                  placeholder="Enter total">
+              </label>
+              <label>
+                Deposit
+                <input type="number" min="0" step="1"
+                  data-quote-deposit="${reference}"
+                  value="${escapeHTML(order.deposit_amount ?? "")}"
+                  placeholder="Enter deposit">
+              </label>
+            </div>
+            <div class="order-quote-actions">
+              <button class="button button-dark" type="button"
+                data-save-quote="${reference}">Save quotation</button>
+              <a href="payment.html?ref=${encodeURIComponent(order.reference)}"
+                target="_blank" rel="noopener noreferrer">Open customer payment page ↗</a>
+            </div>
+          </div>
+
           <div class="order-actions">
             <label class="visually-hidden" for="status-${reference}">Change order status</label>
             <select id="status-${reference}" data-status-select="${reference}">
@@ -289,6 +315,57 @@
   statusFilter.addEventListener("change", loadOrders);
 
   ordersList.addEventListener("click", async event => {
+    const quoteButton = event.target.closest("[data-save-quote]");
+
+    if (quoteButton) {
+      const reference = quoteButton.dataset.saveQuote;
+      const totalInput = ordersList.querySelector(
+        `[data-quote-total="${CSS.escape(reference)}"]`
+      );
+      const depositInput = ordersList.querySelector(
+        `[data-quote-deposit="${CSS.escape(reference)}"]`
+      );
+
+      const total = Number(totalInput?.value);
+      const deposit = Number(depositInput?.value || 0);
+
+      if (!Number.isSafeInteger(total) || total <= 0 ||
+          !Number.isSafeInteger(deposit) || deposit < 0 ||
+          deposit > total) {
+        showMessage(
+          dashboardStatus,
+          "Enter a valid total and a deposit that does not exceed it."
+        );
+        return;
+      }
+
+      quoteButton.disabled = true;
+      quoteButton.textContent = "Saving...";
+
+      try {
+        await apiRequest(
+          `/api/admin/orders/${encodeURIComponent(reference)}/quote`,
+          {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              quoted_amount: total,
+              deposit_amount: deposit
+            })
+          }
+        );
+
+        showMessage(dashboardStatus, "Quotation saved successfully.");
+        await loadOrders();
+      } catch (error) {
+        showMessage(dashboardStatus, error.message);
+        quoteButton.disabled = false;
+        quoteButton.textContent = "Save quotation";
+      }
+
+      return;
+    }
+
     const button = event.target.closest("[data-update-reference]");
     if (!button) return;
 
